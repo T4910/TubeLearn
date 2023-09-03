@@ -4,10 +4,15 @@ import {Router} from './Router.jsx'
 import './index.css'
 import {ContextApi} from './Context/ContextApi.jsx'
 
+import { store } from './redux/store.js'
+import { Provider } from 'react-redux'
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ContextApi>
-      <Router />
+      <Provider store={store}>
+        <Router />
+      </Provider>
     </ContextApi>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
