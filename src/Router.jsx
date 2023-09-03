@@ -1,20 +1,21 @@
 import React from 'react'
-import { useContextApi } from './Context/ContextApi'
 import {BrowserRouter,Route,Routes} from "react-router-dom"
-import {Landing,Course,Courses,Register,} from "./Pages"
+import {Landing,Course,Courses,Register,Wrapper,Quiz,GlobalWrapper,Error} from "./Pages"
 
 export const Router = () => {
-  const value = useContextApi()
-  console.log(value)
   return (
     <BrowserRouter>
     <Routes>
-      <Route path='/' element={<Landing/>}/>
-      <Route path='/courses' element={<Courses/>}>
+      <Route path='/' element={<GlobalWrapper/>}>
+      <Route path='/courses' element={<Wrapper/>}>
+        <Route index element={<Courses/>}/>
         <Route path=':courseId' element={<Course/>}/>
+        <Route path=':courseId/quiz' element={<Quiz/>}/>
       </Route>
       <Route path='/auth/login' element={<Register/>}/>
       <Route path='/auth/signup' element={<Register/>}/>
+      </Route>
+      <Route path="*" element={<Error/>}/>
     </Routes>
     </BrowserRouter>
   )

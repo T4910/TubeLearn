@@ -17,4 +17,5 @@ body{
     overflow-y: scroll;
     font-family: 'Noto Sans', sans-serif;
     margin: 0 auto;
+    position: relative;
 }
