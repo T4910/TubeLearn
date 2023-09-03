@@ -8,7 +8,8 @@ export default {
         "lightGrey":"#5D5A6F",
         "purpleDark":"#0A033C",
         "orangeDark":"#FF6652",
-        "lighterGrey":"#F7F5FA"
+        "lighterGrey":"#F7F5FA",
+        "strokeGrey":"#DEDDE4"
       },
       fontFamily:{
         "sans-noto":['Noto Sans', 'sans-serif'],
