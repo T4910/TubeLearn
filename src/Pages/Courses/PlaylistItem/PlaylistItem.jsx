@@ -13,8 +13,8 @@ export default function PlaylistItem (props) {
             }}>
             <img src={props.img} alt={props.title} className="w-16"/>
             <div className="tubelearn__video__playlist--item__info ml-2">
-                <h3 className="tubelearn__video__playlist--item__info__title">{props.title}</h3>
-                <span className="tubelearn__video__playlist--item__info__time text-xs text-amber-500">{props.time}</span>
+                <h3 className="tubelearn__video__playlist--item__info__title font-inter font-light text-purpleDark">{props.title}</h3>
+                <span className="tubelearn__video__playlist--item__info__time text-xs text-orangeDark">{props.time}</span>
             </div>
         </div>
     )

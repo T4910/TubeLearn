@@ -5,7 +5,7 @@ import "./Playlist.css"
 
 export default function Playlist () { 
     return (
-        <div className="tubelearn__playlist ml-2 bg-slate-200 overflow-auto w-96">
+        <div className="tubelearn__playlist ml-2  overflow-auto w-96">
             <PlaylistItem 
                 img="https://randomwordgenerator.com/img/picture-generator/54e6d1444850ad14f1dc8460962e33791c3ad6e04e507441722978d6934bc5_640.jpg"
                 title="Slow Down"
