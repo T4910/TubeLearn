@@ -7,6 +7,7 @@ export const Router = () => {
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<GlobalWrapper/>}>
+        <Route index element={<Landing/>}/>
       <Route path='/courses' element={<Wrapper/>}>
         <Route index element={<Courses/>}/>
         <Route path=':courseId' element={<Course/>}/>

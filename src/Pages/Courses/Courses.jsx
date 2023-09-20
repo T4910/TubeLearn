@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { videos } from '../../utils/dummyData'
+import React, { useEffect } from 'react'
+import { setVideos, setIsLoading } from '../../features/video/videoSlice'
 import {SingleCouse} from "../../Components/SingleCouse"
+import { useSelector, useDispatch } from 'react-redux'
 import { useContextApi } from '../../Context/ContextApi'
 import { Loader } from '../../Components/Loader'
 
 const Courses = () => {
   const {getCourses,setDanger} = useContextApi()
-  const [videos,setVideos] = useState([])
-  const [loading,setLoading] = useState(true)
+  const dispatch = useDispatch()
+  const {videos, isLoading} = useSelector((store)=>store.video)
   useEffect(()=>{
     getCourses().then(({data})=>{
-      setVideos(data)
+      dispatch(setVideos({videos:data}))
     }).catch(
       (error)=>setDanger(error)
-    ).finally(()=>setLoading(false))
+    ).finally(()=>dispatch(setIsLoading({isLoading:false})))
   },[])
-  if(loading){
+  if(isLoading){
     return <Loader/>
   }
   return (
     <>
     {
-        videos.map((video, index)=><SingleCouse {...video} id={index}/>)
+        videos.map((video)=><SingleCouse {...video} key={video.course_id}/>)
     }
     </>
   )

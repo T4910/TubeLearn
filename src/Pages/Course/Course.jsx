@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-
 import Playlist from './Playlist/Playlist';
 import { useContextApi } from '../../Context/ContextApi';
 import { Loader } from '../../Components/Loader';

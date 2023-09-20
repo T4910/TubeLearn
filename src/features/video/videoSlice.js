@@ -1,26 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    video: "https://www.youtube.com/embed/o34Lgq98H3k",
-    title: "Slow Down"
+    "videos":[],
+    "isLoading":true
 }
 
 export const videoSlice = createSlice({
     name: "videos",
     initialState,
     reducers: {
-        setVideo: (state, action) => {
-            state.video = action.payload;
+        setVideos: (state, action) => {
+            state.videos = action.payload.videos
         },
-        setTitle: (state, action) => {
-            state.title = action.payload;
+        setIsLoading: (state,action)=>{
+            state.isLoading = action.payload.isLoading
         }
     }
 })
 
 export const {
-    setVideo,
-    setTitle
+    setVideos,
+    setIsLoading
 } = videoSlice.actions;
 
 export default videoSlice.reducer;
