@@ -1,28 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { videos } from '../../utils/dummyData'
 import {SingleCouse} from "../../Components/SingleCouse"
-import { useContextApi } from '../../Context/ContextApi'
 import { Loader } from '../../Components/Loader'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectCourses,selectError,selectStatus, getCourses } from '../../features/courses/coursesSlice'
+import { loadStatus } from '../../utils/baseUrl'
+import {Error} from "../../Components/Error"
+import { useEffect } from "react"
 
 const Courses = () => {
-  const {getCourses,setDanger} = useContextApi()
-  const [videos,setVideos] = useState([])
-  const [loading,setLoading] = useState(true)
+  const dispatch = useDispatch()
+  const courses = useSelector(selectCourses)
+  const error = useSelector(selectError)
+  const status = useSelector(selectStatus)
+  const renderedCourses = courses.map((video, index)=><SingleCouse key={index} {...video} id={index}/>)
   useEffect(()=>{
-    getCourses().then(({data})=>{
-      setVideos(data)
-    }).catch(
-      (error)=>setDanger(error)
-    ).finally(()=>setLoading(false))
-  },[])
-  if(loading){
-    return <Loader/>
+    if(status === loadStatus.IDLE){
+      dispatch(getCourses())
+    }
+  },[dispatch, status])
+  let content
+  if(status === loadStatus.SUCCESSFUL){
+    content = renderedCourses
+  }else if (status === loadStatus.FAILED){
+    content = <Error state={'danger'} msg={error} show={true}/>
+  }else{
+    content = <Loader/>
+
   }
   return (
     <>
-    {
-        videos.map((video, index)=><SingleCouse {...video} id={index}/>)
-    }
+    {content}
     </>
   )
 }
