@@ -11,7 +11,7 @@ const initialState = {
 
 export const getVideos = createAsyncThunk('videos/getVideos',async({courseId})=>{
     const {data} = await axios.get(`${base_url}/courses/${courseId}/video`);
-    return data
+    return data.video_links
 })
 
 export const videoSlice = createSlice({
@@ -20,10 +20,13 @@ export const videoSlice = createSlice({
     reducers: {
         setCurrent(state, action){
             state.current = action.payload
+        },
+        setStatus(state, action){
+            state.status = action.payload
         }
     },extraReducers(builder){
         builder.addCase(getVideos.fulfilled, (state, action) =>{
-            state.data = action.payload.video_links
+            state.data = action.payload
             state.status = loadStatus.SUCCESSFUL
         }).addCase(getVideos.rejected, (state, action) =>{
             state.status = loadStatus.FAILED
@@ -34,7 +37,7 @@ export const videoSlice = createSlice({
     }
 })
 
-export const {setCurrent} = videoSlice.actions
+export const {setCurrent, setStatus} = videoSlice.actions
 
 export const selectVideos = store => store.videos.data
 export const selectError = store => store.videos.error

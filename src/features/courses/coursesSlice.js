@@ -10,7 +10,7 @@ const initialState = {
 
 export const getCourses = createAsyncThunk('videos/getVideos',async()=>{
     const {data} = await axios.get(`${base_url}/courses`)
-    return data
+    return data.courses
 })
 
 export const coursesSlice = createSlice({

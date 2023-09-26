@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Playlist from './Playlist/Playlist';
 import { Loader } from '../../Components/Loader';
-import { getVideos, selectCurrent, selectError, selectStatus, selectVideos } from '../../features/videos/videoSlice';
+import { getVideos, selectCurrent, selectError, selectStatus, selectVideos, setStatus} from '../../features/videos/videoSlice';
 import { loadStatus } from '../../utils/baseUrl';
 import { Error } from '../../Components/Error';
 
@@ -15,11 +15,10 @@ const Course = () => {
   const current = useSelector(selectCurrent)
   const error = useSelector(selectError)
   const status = useSelector(selectStatus)
+
   useEffect(()=>{
-    if(status === loadStatus.IDLE){
       dispatch(getVideos({courseId}))
-    }
-  }, [status, dispatch, courseId])
+  }, [courseId, dispatch])
   if (status === loadStatus.FAILED){
     return <Error msg={error}/>
   }
