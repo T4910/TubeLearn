@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./index.html","./src/**/*.{js,jsx}"],
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     extend: {
       colors:{
@@ -12,9 +16,9 @@ export default {
         "strokeGrey":"#DEDDE4"
       },
       fontFamily:{
-        "sans-noto":['Noto Sans', 'sans-serif'],
-        "inter":['Noto Sans', 'sans-serif'],
-        'paytone':['Paytone One', 'sans-serif']
+        sans : ['var(--font-noto-sans)'], //['Noto Sans', 'sans-serif'],
+        inter : ['var(--font-inter)'], //['Inter', 'sans-serif'],
+        paytone : ['var(--font-paytone-one)'],// ['Paytone One', 'sans-serif']
       }
     },
   },
