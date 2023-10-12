@@ -1,5 +1,4 @@
 import '../public/styles/global.css'
-import Head from 'next/head';
 import { inter, paytone_one, noto_sans } from './fonts'
 
 

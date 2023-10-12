@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router';
+// import React, { useEffect, useState } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { useParams } from 'react-router';
 import Playlist from './Playlist/Playlist';
-import { useContextApi } from '../../Context/ContextApi';
-import { Loader } from '../../../../../app/Components/Loader';
 
 
-const Course = () => {
-  const {courseId} = useParams()
-  const [video,setVideo] = useState(null)
-  const [loading,setLoading] = useState(true)
-  const {getCourse,setDanger} = useContextApi()
-  useEffect(()=>{
-    getCourse(courseId).then(({data})=>{
-      setVideo(data)
-    }).catch((error)=>setDanger(error)).finally(()=>setLoading(false))
-  },[])
-  if(loading){
-    return <Loader/>
+const Course = ({params}) => {
+  const video = {
+    link: "https://www.youtube.com/embed/gUYBFDPZ5qk?si=58CEE_3triY1Lbag",
+    title: "I built a $5 chat app with Pocketbase & Svelte. Will it scale?",
+    description: "Learn how build a fullstack realtime chat app with Svelte and Pocketbase, then deploy it to a Linux server for just $5. Let's find out if the Spock stack can scale..."
   }
+
+
+  // useEffect(()=>{
+  //   getCourse(courseId).then(({data})=>{
+  //     setVideo(data)
+  //   }).catch((error)=>setDanger(error)).finally(()=>setLoading(false))
+  // },[])
+
+
   return (
       <>
         <div className='tubelearn__video-container flex bg-lighterGrey rounded-lg'>

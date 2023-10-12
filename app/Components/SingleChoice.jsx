@@ -1,6 +1,4 @@
-import React from 'react'
-
-export const SingleChoice = ({title}) => {
+const SingleChoice = ({title}) => {
   return (
     <div className='flex items-start space-x-5'>
         <input type="checkbox"className='mt-2'/>
@@ -8,3 +6,5 @@ export const SingleChoice = ({title}) => {
     </div>
   )
 }
+
+export default SingleChoice

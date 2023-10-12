@@ -1,7 +1,7 @@
 import Logo from './Logo'
 import Link from 'next/link'
 
-export const Nav = () => {
+const Nav = () => {
   return (
     <div className='flex justify-between items-center w-full h-[80px]'>
         <Logo/>
@@ -11,3 +11,5 @@ export const Nav = () => {
     </div>
   )
 }
+
+export default Nav
