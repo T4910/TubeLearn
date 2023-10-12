@@ -1,8 +1,5 @@
-// import React, { useEffect } from 'react'
-// import { setVideos, setIsLoading } from '../../features/video/videoSlice'
 import SingleCourse from "../Components/SingleCourse"
-// import { useSelector, useDispatch } from 'react-redux'
-// import { useContextApi } from '../../Context/ContextApi'
+import Header from "../Components/Header"
 
 const Courses = () => {
     function truncateSentence(sentence, maxWords) {
@@ -30,11 +27,20 @@ const Courses = () => {
     ]
 
 
-    return (
-        <> { videos.map((video) => {
-                let edittedMeta = {...video, description: truncateSentence(video.description, 35)}
-                return <SingleCourse {...edittedMeta} key={video.course_id}/>
-            }) } </>
+    return ( 
+        <div>
+            <div className='flex flex-col gap-7'>
+                { 
+                    videos.map((video) => {
+                        let edittedMeta = {...video, description: truncateSentence(video.description, 35)}
+                        return <SingleCourse {...edittedMeta} key={video.course_id}/>
+                    }) 
+                } 
+            </div>
+            <div>
+                <Header style='mt-8 pl-8 text-lg'>Recent</Header>
+            </div>
+        </div>
     )
 }
 

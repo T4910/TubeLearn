@@ -12,8 +12,8 @@ module.exports = {
         "lightGrey":"#5D5A6F",
         "purpleDark":"#0A033C",
         "orangeDark":"#FF6652",
-        "lighterGrey":"#F7F5FA",
-        "strokeGrey":"#DEDDE4"
+        "strokeGrey":"#DEDDE4",
+        "lighterGrey": "#F0EEF3", //"#F7F5FA",
       },
       fontFamily:{
         sans : ['var(--font-noto-sans)'], //['Noto Sans', 'sans-serif'],

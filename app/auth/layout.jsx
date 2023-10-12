@@ -13,6 +13,7 @@ const Layout = ({children}) => {
                 <Image className="w-full" src="/assets/register.svg" alt="register icon" width={330} height={325}/>
                 </div>
                 {/* login and Register components */}
+                {/* grid place-items-center flex-grow */}
                 <div className="flex flex-col space-y-5 mx-auto my-auto"> 
                     {children}
                 </div>

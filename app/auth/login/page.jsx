@@ -6,7 +6,7 @@ import "../register.css";
 
 const Login = () => {
   return (
-    <>
+    <div>
       <form className="flex flex-col space-y-5">
         <ClassicInput
           title="Email"
@@ -26,7 +26,7 @@ const Login = () => {
           <p>Don't have an account? </p>
           <Link className="text-pinkDark" href='/auth/signup'>Sign Up</Link>
         </div>
-    </>
+    </div>
   )
 };
 

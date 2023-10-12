@@ -1,7 +1,7 @@
-const Header = ({text, style}) => {
+const Header = ({children, style}) => {
   return (
-    <h1 className={`font-inter text-purpleDark font-medium mt-0 ${style ?? ''}`}>
-        {text}
+    <h1 className={`font-inter children-purpleDark font-medium ${style ?? ''}`}>
+        {children}
     </h1>
   )
 }

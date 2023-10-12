@@ -1,3 +1,18 @@
-.tubelearn__playlist {
-    max-height: 26rem;
-}
+/* custom-scrollbar.css */
+
+/* Style the scrollbar track */
+::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  /* Style the scrollbar thumb */
+  ::-webkit-scrollbar-thumb {
+    background: #5D5A6F; /* Change this to your preferred color */
+    border-radius: 6px;
+  }
+  
+  /* Style the scrollbar track when hovered */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0A033C; /* Change this to your preferred color */
+  }
+  

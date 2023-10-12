@@ -9,7 +9,6 @@ const SingleQuiz = ({title, choices, index}) => {
         <h1 className='font-sans text-lightGrey'>{title}</h1>
         </div>
         
-        <Header text="Choices"/>
         { choices.map((choice, index)=> <SingleChoice key={index} {...choice} />) }
     </div>
   )
