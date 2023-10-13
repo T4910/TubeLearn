@@ -35,7 +35,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${paytone_one.variable} ${noto_sans.variable}`}>
-      <body className='h-screen'>{children}</body>
+      <body className='h-screen'>
+          {children}
+      </body>
     </html>
   )
 }

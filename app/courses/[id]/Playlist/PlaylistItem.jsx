@@ -1,19 +1,19 @@
 // import React from "react";
 // import { useDispatch } from "react-redux"
-// import { setCurrent } from "../../../features/video/currentVideoSlice";
-// import "./PlaylistItem.css"
 import Image from 'next/image'
+import Link from 'next/link'
 
-export default function PlaylistItem ({id, title, link}) {
-    const img = "https://randomwordgenerator.com/img/picture-generator/54e6d1444850ad14f1dc8460962e33791c3ad6e04e507441722978d6934bc5_640.jpg"
-    // const dispatch = useDispatch();
+export default function PlaylistItem ({id, title, img}) {
     return (
-        <div className="hover:cursor-pointer flex bg-white rounded-lg p-2 w-full" >
-            <img src={img} alt={title} className="w-16" height={60} width={100}/>
-            <div className="tubelearn__video__playlist--item__info ml-2">
-                <h3 className="tubelearn__video__playlist--item__info__title font-inter font-light text-purpleDark">{title}</h3>
-                <span className="tubelearn__video__playlist--item__info__time text-xs text-orangeDark">{2.34}</span>
+        <Link href={`/courses/${id}`} className="hover:cursor-pointer flex gap-6 bg-white rounded-lg p-2 w-full">
+            <div>
+            <Image src={img} alt={title} height={65} width={110} className='w-[110px] h-[65px] rounded-lg'/>
+
             </div>
-        </div>
+            <div>
+                <h3 className="font-inter font-light text-purpleDark">{title}</h3>
+                <span className="text-xs text-orangeDark">{2.34}</span>
+            </div>
+        </Link>
     )
 }

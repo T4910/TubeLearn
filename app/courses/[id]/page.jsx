@@ -4,19 +4,17 @@
 import Playlist from './Playlist/Playlist';
 
 
-const Course = ({params}) => {
+const Course = async ({params}) => {
+  const res = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${params.id}&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`)
+  const data = await res.json()
+
+  // if ivalid vide show no result 
+
   const video = {
-    link: "https://www.youtube.com/embed/gUYBFDPZ5qk?si=58CEE_3triY1Lbag",
-    title: "I built a $5 chat app with Pocketbase & Svelte. Will it scale?",
-    description: "Learn how build a fullstack realtime chat app with Svelte and Pocketbase, then deploy it to a Linux server for just $5. Let's find out if the Spock stack can scale..."
+    link: `https://www.youtube.com/embed/${params.id}`,
+    title: data.items[0].snippet.title,
+    description: data.items[0].snippet.description
   }
-
-
-  // useEffect(()=>{
-  //   getCourse(courseId).then(({data})=>{
-  //     setVideo(data)
-  //   }).catch((error)=>setDanger(error)).finally(()=>setLoading(false))
-  // },[])
 
 
   return (

@@ -1,41 +1,15 @@
-import SingleCourse from "../Components/SingleCourse"
 import Header from "../Components/Header"
+import Videos from "./videoList";
 
-const Courses = () => {
-    function truncateSentence(sentence, maxWords) {
-        const words = sentence.split(' ');
-        if (words.length > maxWords) {
-          return words.slice(0, maxWords).join(' ') + ' ...';
-        }
-        return sentence;
-      }
-      
-      
-    let videos = [
-        {
-            course_title:'Tobi', 
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
-            link:"https://youtu.be/gUYBFDPZ5qk?si=WuoV6nY6YfvN2pEt", 
-            course_id:'1'
-        },
-        {
-            course_title:'Tobi', 
-            description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
-            link:"https://youtu.be/gUYBFDPZ5qk?si=WuoV6nY6YfvN2pEt", 
-            course_id:'1'
-        }
-    ]
 
+const Courses = async ({ searchParams }) => {
+    const query = searchParams.q
+    const vids = await youtubeSearch(query)    
 
     return ( 
         <div>
             <div className='flex flex-col gap-7'>
-                { 
-                    videos.map((video) => {
-                        let edittedMeta = {...video, description: truncateSentence(video.description, 35)}
-                        return <SingleCourse {...edittedMeta} key={video.course_id}/>
-                    }) 
-                } 
+                <Videos queryVids={vids}/>
             </div>
             <div>
                 <Header style='mt-8 pl-8 text-lg'>Recent</Header>
@@ -43,5 +17,24 @@ const Courses = () => {
         </div>
     )
 }
+
+async function youtubeSearch(query){   
+    if(!query) return null
+
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}&type=video&part=snippet&maxResults=5&order=rating&q=${query}`)
+    const data = await res.json()
+
+    const newVideos = data.items.map((vidMeta) => {
+        return {
+            course_title: vidMeta.snippet.title,
+            description: vidMeta.snippet.description,
+            link: vidMeta.snippet.thumbnails.default.url,
+            course_id: vidMeta.id.videoId
+        }
+    })
+
+    return newVideos
+}
+
 
 export default Courses

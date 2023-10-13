@@ -1,4 +1,4 @@
-import { FaSearch } from 'react-icons/fa';
+import SearchBTN from './searchBTN'
 
 /**
  * When I search from the front page, if not logged in, send to login page while keeping the characters
@@ -8,15 +8,22 @@ import { FaSearch } from 'react-icons/fa';
  * 
  */
 
-const Search = ({nav}) => {
-    const apiURL = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&part=snippet&q=${query}&type=video`;
+const Search = async ({nav, set}) => {
+    // async function youtubeSearch(form){   
+    //     'use server'   
+    //     let query = form.get('query')
+        
+    //     redirect(`/courses?q=${query}`)
 
+    //     // redirect(`?q=${query}`)
+    // }
 
     return(
-        <div className={`rounded-lg space-x-2 w-max p-2 flex items-center ${nav ? 'bg-lighterGrey' : 'bg-white'}`}>
-            <input placeholder='Search Courses' className="outline-none font-sans font-normal bg-inherit text-lightGrey" type="text"/>
-            <button className="cursor-pointer bg-pinkDark text-white p-3 py-1 rounded-lg" type="submit">{nav ? <FaSearch /> : "Search"}</button>
-        </div>
+        <form className={`rounded-lg space-x-2 w-max p-2 flex items-center ${nav ? 'bg-lighterGrey' : 'bg-white'}`}>
+            <input name="query" placeholder='Search Courses' className="outline-none font-sans font-normal bg-inherit text-lightGrey" type="text"/>
+            {/* <button formAction={youtubeSearch} className="cursor-pointer bg-pinkDark text-white p-3 py-1 rounded-lg" >{nav ? <FaSearch /> : "Search"}</button> */}
+            <SearchBTN nav={nav}/>
+        </form>
     )
 }
 
