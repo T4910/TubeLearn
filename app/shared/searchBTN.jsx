@@ -1,10 +1,12 @@
 'use client'
 import { useRouter, usePathname } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 import { FaSearch } from 'react-icons/fa';
 
 
 const SearchBTN = ({nav}) => {
+    const { status } = useSession()
     const router = useRouter()
     const pathname = usePathname()
     const { pending } = useFormStatus()
@@ -13,6 +15,11 @@ const SearchBTN = ({nav}) => {
         let query = form.get('query')
         
         if(pathname != '/courses'){
+            return router.push(`/courses?q=${query}`)
+        } 
+        
+        if(pathname != '/'){
+            if(status === 'unauthenticated') return router.push(`/auth/login?q=${query}`)
             return router.push(`/courses?q=${query}`)
         } 
 

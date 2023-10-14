@@ -1,5 +1,4 @@
 'use client'
-import PlaylistItem from "./PlaylistItem";
 // import { useVideos } from "../../../shared/context";
 
 const Videos = () => {

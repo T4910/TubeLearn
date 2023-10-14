@@ -3,7 +3,7 @@ import Image from "next/image"
 
 const SingleCourse = ({course_title, description, link, course_id}) => {
   return (
-    <Link className='flex items-start justify-center gap-8 h-40' href={`/courses/${course_id}`}>
+    <Link className='flex items-start justify-center gap-8 h-40' href={`/courses/${course_id}?org=${course_id}`}>
         <Image className="rounded-lg h-full w-1/3" src={link} width={250} height={60}/>
         <div className='flex items-start flex-col max-w-[800px] h-full w-2/3'>
             <h1 className='font-inter font-medium text-xl text-purpleDark'>{course_title}</h1>
