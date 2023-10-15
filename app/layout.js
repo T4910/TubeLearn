@@ -1,5 +1,6 @@
 import '../public/styles/global.css'
 import { inter, paytone_one, noto_sans } from './fonts'
+// import Session from './session'
 
 
 export const metadata = {
@@ -36,7 +37,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${paytone_one.variable} ${noto_sans.variable}`}>
       <body className='h-screen'>
+        {/* <Session> */}
           {children}
+        {/* </Session> */}
       </body>
     </html>
   )

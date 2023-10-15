@@ -22,7 +22,7 @@ const Course = async ({params, searchParams}) => {
 
   return (
     <div className='flex flex-col gap-7'>
-      <div className='flex lg:flex-row justify-around gap-12'>
+      <div className='flex lg:flex-row justify-around gap-12 w-full'>
         <div className='tubelearn__video-container flex flex-col rounded-lg'>
           <Video vid={videometa}/>
           <Buttons videoID={params.id} orgURL={originalURL}/>

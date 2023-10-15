@@ -1,12 +1,12 @@
 'use client'
 import { useRouter, usePathname } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+// import { useSession } from 'next-auth/react'
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 import { FaSearch } from 'react-icons/fa';
 
 
 const SearchBTN = ({nav}) => {
-    const { status } = useSession()
+    // const { status } = useSession()
     const router = useRouter()
     const pathname = usePathname()
     const { pending } = useFormStatus()

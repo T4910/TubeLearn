@@ -9,7 +9,7 @@ const Submit = () => {
     const [state, formAction] = useFormState(register, { message: null })
     let { pending } = useFormStatus()
 
-    useEffect(async () => {
+    useEffect(() => async function() {
         console.log('called')
         if(state?.message){
             pending = true // so that we can redirect 
