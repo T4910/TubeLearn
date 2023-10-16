@@ -3,22 +3,52 @@ import Buttons from './buttons'
 import Description from './description'
 import Video from './video'
 import Link from 'next/link'
+import { PrismaClient } from '@prisma/client';
+import { getServerSession } from 'next-auth'
+import { authOptions } from "../../api/auth/[...nextauth]/route"
 
+
+const saveToDB = async (userId, videoId) => {
+  const prisma = new PrismaClient()
+  try {
+    const checkEntry = await prisma.recent.findMany({
+      where: { userId: userId, videoId: videoId }
+    })
+
+    if(checkEntry) return
+
+    const recentEntry = await prisma.recent.create({
+      data: {
+        userId: userId, 
+        videoId: videoId, 
+      },
+    });
+    console.log('recent entry: ', recentEntry)
+    prisma.$disconnect()
+    return recentEntry;
+  } catch (error) {
+    prisma.$disconnect()
+    console.error('Error creating recent entry:', error);
+  }
+};
 
 const Course = async ({params, searchParams}) => {
   const res = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${params.id}&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`)
   const data = await res.json()
   const originalURL = searchParams.org
+  const session = await getServerSession(authOptions)
 
   // if ivalid vide show no result 
 
   console.log(data.items[0].snippet.categoryId)
+
   const videometa = {
     link: `https://www.youtube.com/embed/${params.id}`,
     title: data.items[0].snippet.title,
     description: data.items[0].snippet.description
   }
 
+  await saveToDB(session.user.id, params.id)
 
   return (
     <div className='flex flex-col gap-7'>

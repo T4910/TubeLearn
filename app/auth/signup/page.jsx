@@ -2,11 +2,23 @@ import ClassicInput from "../../Components/ClassicInput";
 import Link from "next/link"
 import Submit from './regBTN'
 import "../register.css";
+import { redirect } from "next/navigation";
+import { getServerSession } from 'next-auth'
+import { authOptions } from "../../api/auth/[...nextauth]/route"
+import Flash from '../flash'
 
 
-const Register = () => {
+
+const Register = async ({searchParams}) => {
+  let session = await getServerSession(authOptions)
+  console.log(session)
+  if(session) redirect('/')
+
+  const flash = searchParams.err
+
   return (
     <>
+      <Flash flash={flash}/>
       <form className="flex flex-col space-y-5">
           <ClassicInput
             title="Username"

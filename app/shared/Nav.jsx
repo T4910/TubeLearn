@@ -1,18 +1,21 @@
 import Logo from './Logo'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-// import Search from './Search'
+import { redirect } from "next/navigation";
+import { getServerSession } from 'next-auth'
+import { authOptions } from "../api/auth/[...nextauth]/route"
+import SignInorOut from './authBTN'
 
 const Search = dynamic(() => import('./Search'))
 
-const Nav = ({noSearch}) => {
+const Nav = async ({noSearch}) => {
+  let session = await getServerSession(authOptions)
+
   return (
     <div className='flex justify-between items-center w-full h-[80px] min-h-[80px]'>
         <Logo/>
         {!noSearch && <Search nav={true} />}
-        <Link href = "/auth/login" className='font-sans bg-purpleDark p-3 py-1 rounded-lg text-white'>
-          login
-        </Link>
+        <SignInorOut session={session}/>
     </div>
   )
 }

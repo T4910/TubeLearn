@@ -1,6 +1,5 @@
-import Header from "../Components/Header"
 import Videos from "./videoList";
-
+import Recent from './recent'
 
 const Courses = async ({ searchParams }) => {
     const query = searchParams.q
@@ -12,7 +11,7 @@ const Courses = async ({ searchParams }) => {
                 <Videos queryVids={vids}/>
             </div>
             <div>
-                <Header style='mt-8 pl-8 text-lg'>Recent</Header>
+                <Recent />
             </div>
         </div>
     )
