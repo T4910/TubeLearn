@@ -1,5 +1,4 @@
 import SingleCourse from "../Components/SingleCourse"
-import Image from 'next/image'
 
 
 const Videos = ({queryVids}) => {

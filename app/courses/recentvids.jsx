@@ -1,22 +1,34 @@
 import { PrismaClient } from "@prisma/client"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../api/auth/[...nextauth]/route"
+import RecentVideo from './singlerecentvideo'
 
 
 const RecentVideos = async () => {
+    let err;
     const session = await getServerSession(authOptions)
     const ID = session.user.id
 
     const prisma = new PrismaClient()
 
-    const checkEntry = await prisma.recent.findMany({ where: { userId: ID } })
-
-    console.log(checkEntry)
+    let checkEntry;
+    try {
+        checkEntry = await prisma.recent.findMany({ where: { userId: ID } })  
+    } catch (error) {
+        console.log(error)
+        err = true
+        checkEntry = []
+    }
   
     prisma.$disconnect()
 
     return (
-        <div>RecentVideos</div>
+        <div className="flex flex-nowrap overflow-x-auto gap-8">
+            { err ? 'check your internet connection' :
+                checkEntry.length == 0 ? 'Empty' : 
+                (checkEntry.map(({videoId}) => <RecentVideo id={videoId}/>))
+            }
+        </div>
     )
 }
 
