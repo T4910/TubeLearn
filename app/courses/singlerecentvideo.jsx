@@ -5,7 +5,7 @@ const Singlerecentvideo = async ({id}) => {
     const data = await youtubeInfo(id)
 
     return (
-        <Link href={`/courses/${id}`}>
+        <Link href={`/courses/${id}?org=${id}`}>
             <Image src={data.link} width={300} height={100}/>
             <p>{data.title}</p>
         </Link>
