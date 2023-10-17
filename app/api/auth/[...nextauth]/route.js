@@ -25,7 +25,8 @@ export const authOptions = {
       Crendentials({
         async authorize(credentials){
           let user = await prisma.user.findFirst({where: {email: credentials.email}}) || await prisma.user.findFirst({where: {username: credentials.email}})
-  
+          prisma.$disconnect()
+
           if(!user) return null
           let similarPassword = await compare(credentials.password, user.password)        
           

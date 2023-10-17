@@ -1,9 +1,11 @@
 'use client'
+import { useState } from 'react'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 const authBTN = ({session}) => {
     const router = useRouter()
+    const [loading, setLoading] = useState(session ? 'Log Out' : 'Login')
 
     async function signInorOut(){
         if(session){
@@ -15,7 +17,12 @@ const authBTN = ({session}) => {
     }
 
     return (
-        <button className='font-sans bg-purpleDark p-3 py-1 rounded-lg text-white' onClick={() => signInorOut()}>{session ? 'Log Out' : 'Login'}</button>
+        <button className='font-sans bg-purpleDark p-3 py-1 rounded-lg text-white' onClick={() => {
+            setLoading('loadSpin')
+            signInorOut()
+        }}>
+            {loading}
+        </button>
     )
 }
 

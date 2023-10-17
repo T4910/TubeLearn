@@ -14,7 +14,7 @@ async function createUser(username, email, password){
             }
         })
 
-        console.log(user)
+        prisma.$disconnect()
         return {
             success: user ? true : false, 
             err: user ? '' : 'unknown',

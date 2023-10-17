@@ -19,9 +19,14 @@ const Courses = async ({ searchParams }) => {
 
 async function youtubeSearch(query){   
     if(!query) return null
+    let data;
 
-    const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}&type=video&part=snippet&maxResults=5&order=rating&q=${query}`)
-    const data = await res.json()
+    try{
+        const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}&type=video&part=snippet&maxResults=5&order=rating&q=${query}`)
+        data = await res.json()
+    } catch (e) {
+        return 'bandwidth err'
+    }
 
     const newVideos = data.items.map((vidMeta) => {
         return {

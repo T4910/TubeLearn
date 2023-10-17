@@ -3,16 +3,9 @@ import Link from "next/link";
 import "../register.css";
 import LoginBTN from './loginBTN'
 import Flash from '../flash'
-import { redirect } from "next/navigation";
-import { getServerSession } from 'next-auth'
-import { authOptions } from "../../api/auth/[...nextauth]/route"
 
 
 const Login = async ({searchParams}) => {
-  let session = await getServerSession(authOptions)
-  console.log(session)
-  if(session) redirect('/')
-
   const flash = searchParams.err
 
   return (

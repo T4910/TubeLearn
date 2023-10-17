@@ -2,11 +2,10 @@ import Playlist from './Playlist/Playlist';
 import Buttons from './buttons'
 import Description from './description'
 import Video from './video'
-import Link from 'next/link'
 import { PrismaClient } from '@prisma/client';
-import { getServerSession } from 'next-auth'
-import { authOptions } from "../../api/auth/[...nextauth]/route"
-
+import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../api/auth/[...nextauth]/route';
 
 const saveToDB = async (userId, videoId) => {
   const prisma = new PrismaClient()
@@ -23,7 +22,6 @@ const saveToDB = async (userId, videoId) => {
         videoId: videoId, 
       },
     });
-    console.log('recent entry: ', recentEntry)
     prisma.$disconnect()
     return recentEntry;
   } catch (error) {
@@ -33,24 +31,29 @@ const saveToDB = async (userId, videoId) => {
 };
 
 const Course = async ({params, searchParams}) => {
-  const res = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${params.id}&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`)
-  const data = await res.json()
-  const originalURL = searchParams.org
+  let data, courseError; 
   const session = await getServerSession(authOptions)
+  const originalURL = searchParams.org
 
-  // if ivalid vide show no result 
+  try {
+    const res = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${params.id}&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`)
+    data = await res.json()
+  } catch (e) {
+    courseError = true
+  }
 
-  console.log(data.items[0].snippet.categoryId)
+  if(data.pageInfo.totalResults == 0) redirect('/courses')
 
   const videometa = {
     link: `https://www.youtube.com/embed/${params.id}`,
-    title: data.items[0].snippet.title,
-    description: data.items[0].snippet.description
+    title: data.items[0].snippet.title ?? 'check internet connection',
+    description: data.items[0].snippet.description ?? 'check internet connection'
   }
 
-  await saveToDB(session.user.id, params.id)
+  await saveToDB(session?.user.id, params.id)
 
   return (
+    !courseError ?
     <div className='flex flex-col gap-7'>
       <div className='flex lg:flex-row justify-around gap-12 w-full'>
         <div className='tubelearn__video-container flex flex-col rounded-lg'>
@@ -63,7 +66,8 @@ const Course = async ({params, searchParams}) => {
           <Playlist vidID={originalURL} categoryID={data.items[0].snippet.categoryId}/>
         </div>
       </div>
-    </div>       
+    </div>   
+    : 'Check internet connection'    
   )
 }
 

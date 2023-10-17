@@ -15,7 +15,6 @@ const RecentVideos = async () => {
     try {
         checkEntry = await prisma.recent.findMany({ where: { userId: ID } })  
     } catch (error) {
-        console.log(error)
         err = true
         checkEntry = []
     }
@@ -26,7 +25,7 @@ const RecentVideos = async () => {
         <div className="flex flex-nowrap overflow-x-auto gap-8">
             { err ? 'check your internet connection' :
                 checkEntry.length == 0 ? 'Empty' : 
-                (checkEntry.map(({videoId}) => <RecentVideo id={videoId}/>))
+                (checkEntry.map(({videoId}) => <RecentVideo key={videoId} id={videoId}/>))
             }
         </div>
     )

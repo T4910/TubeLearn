@@ -1,5 +1,6 @@
 import SingleQuiz from "../../../Components/SingleQuiz"
 import Header from "../../../Components/Header"
+import { redirect } from 'next/navigation'
 
 const quizes = [
   {
@@ -23,6 +24,8 @@ const quizes = [
 ]
 
 const Quiz = () => {
+  redirect('/')
+
   return (
     <div className='flex flex-col gap-7 flex-grow'>
       <div className="h-full flex flex-col">

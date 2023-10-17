@@ -1,7 +1,14 @@
 import Logo from "../shared/Logo";
 import Image from "next/image"
+import { redirect } from "next/navigation";
+import { getServerSession } from 'next-auth'
+import { authOptions } from "../api/auth/[...nextauth]/route"
 
-const Layout = ({children}) => {
+
+const Layout = async ({children}) => {
+    let session = await getServerSession(authOptions)
+    if(session) redirect('/')
+  
     return (
         <div className="flex h-full items-center bg-lighterGrey justify-center">
             <div className="flex w-[900px] bg-white rounded-lg p-12 relative">
